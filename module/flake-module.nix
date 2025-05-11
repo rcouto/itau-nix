@@ -32,6 +32,7 @@
             runtimeInputs = [
               vm-itau
             ];
+            # TODO refactor tmp mount dir to a flake-part option
             text = ''
               mkdir -p /tmp/vm-downloads
               ${vm-itau}/bin/run-vm-itau-vm

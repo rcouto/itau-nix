@@ -8,7 +8,6 @@
 let
   vm = lib.nixosSystem {
     inherit system;
-    # specialArgs = { inherit self; };
     modules = [
       self.nixosModules.warsaw
       (
@@ -20,14 +19,15 @@ let
               mountHostNixStore = true;
               qemu = {
                 guestAgent.enable = true;
+                # TODO how to auto-update vm resolution with qemu screen resize?
                 options = [ "-vga std" ];
               };
-              # sharedDirectories = {
-              #   downloads = {
-              #     source = "/tmp/vm-downloads";
-              #     target = "/home/rodrigo/Downloads";
-              #   };
-              # };
+              sharedDirectories = {
+                downloads = {
+                  source = "/tmp/vm-downloads";
+                  target = "/home/user/Downloads";
+                };
+              };
             };
           };
           networking.hostName = "vm-itau";
@@ -53,6 +53,13 @@ let
           environment.systemPackages = [
             pkgs.firefox
           ];
+          users.users.user = {
+            uid = 1000;
+            isNormalUser = true;
+            extraGroups = [ "wheel" ];
+            # No passwords
+            hashedPassword = "";
+          };
         }
       )
       (
