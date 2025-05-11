@@ -15,8 +15,6 @@
 
   outputs =
     {
-      self,
-      nixpkgs,
       pre-commit-hooks,
       flake-parts,
       ...
@@ -36,22 +34,19 @@
         ];
         perSystem =
           {
-            pkgs,
             system,
+            lib,
             self',
             ...
           }:
           {
-            packages.default = pkgs.hello;
             checks = import ./checks.nix {
               inherit
                 pre-commit-hooks
-                pkgs
                 system
-                self
+                lib
                 self'
                 ;
-              inherit (nixpkgs) lib;
             };
           };
         flake = {
