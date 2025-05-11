@@ -5,10 +5,6 @@ localFlake:
 # Regular module arguments; self, inputs, etc all reference the final user flake,
 # where this module was imported.
 {
-  lib,
-  config,
-  self,
-  inputs,
   ...
 }:
 {
