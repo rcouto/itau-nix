@@ -1,13 +1,16 @@
 {
   lib,
+  self,
+  self',
+  system,
   ...
 }:
 let
-  system = "x86_64-linux";
   vm = lib.nixosSystem {
     inherit system;
     # specialArgs = { inherit self; };
     modules = [
+      self.nixosModules.warsaw
       (
         { ... }:
         {
@@ -50,6 +53,15 @@ let
           environment.systemPackages = [
             pkgs.firefox
           ];
+        }
+      )
+      (
+        { ... }:
+        {
+          services.warsaw = {
+            enable = true;
+            package = self'.packages.warsaw-bin;
+          };
         }
       )
     ];

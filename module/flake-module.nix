@@ -1,36 +1,43 @@
-# The importApply argument. Use this to reference things defined locally,
-# as opposed to the flake where this is imported.
-_localFlake:
-
-# Regular module arguments; self, inputs, etc all reference the final user flake,
-# where this module was imported.
+{ ... }:
 {
   lib,
+  self,
   ...
 }:
 {
   perSystem =
-    { pkgs, self', ... }:
+    {
+      pkgs,
+      self',
+      system,
+      ...
+    }:
     {
       packages = {
         warsaw-bin = import ./warsaw-bin.nix { inherit pkgs; };
-        itau = import ./vm-itau.nix {
-          inherit lib;
+        vm-itau = import ./vm-itau.nix {
+          inherit
+            self
+            lib
+            system
+            self'
+            ;
         };
-        run-itau =
+        itau =
           let
-            itau = self'.packages.itau;
+            vm-itau = self'.packages.vm-itau;
           in
           pkgs.writeShellApplication {
             name = "run-itau";
             runtimeInputs = [
-              itau
+              vm-itau
             ];
             text = ''
               mkdir -p /tmp/vm-downloads
-              ${itau}/bin/run-vm-itau-vm
+              ${vm-itau}/bin/run-vm-itau-vm
             '';
           };
       };
     };
+  flake.nixosModules.warsaw = import ./warsaw.nix;
 }
