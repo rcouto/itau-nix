@@ -38,7 +38,6 @@ let
         { pkgs, ... }:
         {
           services = {
-            udev.packages = [ pkgs.gnome-settings-daemon ];
             xserver = {
               enable = true;
               displayManager = {
@@ -67,7 +66,7 @@ let
         {
           services.warsaw = {
             enable = true;
-            package = self'.packages.warsaw-bin;
+            package = self'.packages.warsaw;
           };
         }
       )

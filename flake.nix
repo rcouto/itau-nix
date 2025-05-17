@@ -11,19 +11,24 @@
       url = "github:hercules-ci/flake-parts";
       inputs.nixpkgs-lib.follows = "nixpkgs";
     };
+    warsaw-bin = {
+      url = "https://guardiao.itau.com.br/warsaw/warsaw_setup_64.deb";
+      flake = false;
+    };
   };
 
   outputs =
     {
       pre-commit-hooks,
       flake-parts,
+      warsaw-bin,
       ...
     }@inputs:
     flake-parts.lib.mkFlake { inherit inputs; } (
       { withSystem, flake-parts-lib, ... }:
       let
         inherit (flake-parts-lib) importApply;
-        flakeModules.default = importApply ./module/flake-module.nix { inherit withSystem; };
+        flakeModules.default = importApply ./module/flake-module.nix { inherit withSystem warsaw-bin; };
       in
       {
         imports = [

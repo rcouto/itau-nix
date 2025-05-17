@@ -1,11 +1,13 @@
-{ pkgs, ... }:
+{ pkgs, warsaw-bin, ... }:
 pkgs.stdenv.mkDerivation rec {
-  name = "warsaw-bin";
+  name = "warsaw";
 
-  src = pkgs.fetchurl {
-    url = "https://guardiao.itau.com.br/warsaw/warsaw_setup_64.deb";
-    sha256 = "sha256-e37o8V+RfsNeaTcuMLe5Td3UY5e2sjKotuMyL1BANS4=";
-  };
+  src = warsaw-bin;
+
+  # src = pkgs.fetchurl {
+  #   url = "https://guardiao.itau.com.br/warsaw/warsaw_setup_64.deb";
+  #   sha256 = "sha256-e37o8V+RfsNeaTcuMLe5Td3UY5e2sjKotuMyL1BANS4=";
+  # };
 
   nativeBuildInputs = [
     pkgs.dpkg

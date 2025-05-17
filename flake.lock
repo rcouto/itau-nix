@@ -99,7 +99,20 @@
       "inputs": {
         "flake-parts": "flake-parts",
         "nixpkgs": "nixpkgs",
-        "pre-commit-hooks": "pre-commit-hooks"
+        "pre-commit-hooks": "pre-commit-hooks",
+        "warsaw-bin": "warsaw-bin"
+      }
+    },
+    "warsaw-bin": {
+      "flake": false,
+      "locked": {
+        "narHash": "sha256-FcbnuMtIaX85kaZdG2FjgfmsxTC4WNyN4EIMzSS0LV4=",
+        "type": "file",
+        "url": "https://guardiao.itau.com.br/warsaw/warsaw_setup_64.deb"
+      },
+      "original": {
+        "type": "file",
+        "url": "https://guardiao.itau.com.br/warsaw/warsaw_setup_64.deb"
       }
     }
   },

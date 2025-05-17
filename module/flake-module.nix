@@ -1,4 +1,4 @@
-{ ... }:
+{ warsaw-bin, ... }:
 {
   lib,
   self,
@@ -14,7 +14,7 @@
     }:
     {
       packages = {
-        warsaw-bin = import ./warsaw-bin.nix { inherit pkgs; };
+        warsaw = import ./warsaw-bin.nix { inherit pkgs warsaw-bin; };
         vm-itau = import ./vm-itau.nix {
           inherit
             self
