@@ -52,7 +52,7 @@ let
           environment.systemPackages = [
             pkgs.firefox
             # TODO remove below
-            pkgs.gdb            
+            pkgs.gdb
             self'.packages.warsaw-env
           ];
           users.users.user = {
