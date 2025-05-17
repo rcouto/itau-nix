@@ -19,14 +19,19 @@
           let
             warsaw-pkg = self'.packages.warsaw;
           in
-          pkgs.buildFHSUserEnv {
+          pkgs.buildFHSEnv {
             name = "warsaw-env";
+            nativeBuildInputs = [ pkgs.rsync ];
+            extraBuildCommands = ''
+              cd $out/etc && cp -an "${warsaw-pkg}/etc/." .
+              cd $out/lib && cp -an "${warsaw-pkg}/lib/." .
+              cd $out/usr && cp -an "${warsaw-pkg}/usr/." .
+            '';
             targetPkgs = pkgs: [
               warsaw-pkg
               pkgs.coreutils
               pkgs.strace
             ];
-            runScript = "strace ${warsaw-pkg}/usr/local/bin/warsaw/core";
           };
         vm-itau = import ./vm-itau.nix {
           inherit
