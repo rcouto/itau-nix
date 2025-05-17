@@ -51,6 +51,9 @@ let
           };
           environment.systemPackages = [
             pkgs.firefox
+            # TODO remove below
+            pkgs.gdb            
+            self'.packages.warsaw-env
           ];
           users.users.user = {
             uid = 1000;
@@ -59,6 +62,17 @@ let
             # No passwords
             hashedPassword = "";
           };
+          security.sudo.extraRules = [
+            {
+              users = [ "user" ];
+              commands = [
+                {
+                  command = "ALL";
+                  options = [ "NOPASSWD" ];
+                }
+              ];
+            }
+          ];
         }
       )
       (

@@ -15,6 +15,19 @@
     {
       packages = {
         warsaw = import ./warsaw-bin.nix { inherit pkgs warsaw-bin; };
+        warsaw-env =
+          let
+            warsaw-pkg = self'.packages.warsaw;
+          in
+          pkgs.buildFHSUserEnv {
+            name = "warsaw-env";
+            targetPkgs = pkgs: [
+              warsaw-pkg
+              pkgs.coreutils
+              pkgs.strace
+            ];
+            runScript = "strace ${warsaw-pkg}/usr/local/bin/warsaw/core";
+          };
         vm-itau = import ./vm-itau.nix {
           inherit
             self

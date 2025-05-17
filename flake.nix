@@ -41,6 +41,7 @@
           {
             system,
             lib,
+            pkgs,
             self',
             ...
           }:
@@ -50,6 +51,12 @@
                 pre-commit-hooks
                 system
                 lib
+                self'
+                ;
+            };
+            devShells = import ./shells.nix {
+              inherit
+                pkgs
                 self'
                 ;
             };

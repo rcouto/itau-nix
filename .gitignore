@@ -1,1 +1,5 @@
-vm-itau.qcow2
+*.qcow2
+result
+.pre-commit-config.yaml
+nixos.img
+sd-card.img
