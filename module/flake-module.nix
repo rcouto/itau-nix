@@ -32,6 +32,19 @@
               pkgs.coreutils
               pkgs.strace
             ];
+            extraBwrapArgs = [
+              "--tmpfs /var/run"
+              "--tmpfs /run/user"
+              "--overlay-src ${warsaw-pkg}/usr/local/etc/warsaw"
+              "--tmp-overlay /usr/local/etc/warsaw"
+              # "30800"
+            ];
+            # runScript = ''
+            #   strace -f /usr/local/bin/warsaw/core
+            # '';
+            runScript = ''
+              /usr/local/bin/warsaw/core
+            '';
           };
         vm-itau = import ./vm-itau.nix {
           inherit

@@ -12,7 +12,7 @@ in
 
   options = {
     services.warsaw.enable = lib.mkEnableOption "enables warsaw";
-    services.warsaw.package = lib.mkPackageOption pkgs "warsaw package" { };
+    services.warsaw.package = lib.mkPackageOption pkgs "warsaw-env package" { };
   };
 
   config = lib.mkIf cfg.enable {
@@ -24,16 +24,18 @@ in
         "dbus.service"
       ];
       serviceConfig = {
-        User = "warsaw";
-        Group = "warsaw";
+        # User = "warsaw";
+        # Group = "warsaw";
 
-        DynamicUser = true;
+        # DynamicUser = true;
         StateDirectory = "warsaw";
-        # Restart = "always";
-        # RestartSec = 5;
+        Restart = "always";
+        RestartSec = 5;
 
-        ExecStart = "${cfg.package}/usr/local/bin/warsaw/core";
+        ExecStart = "${cfg.package}/bin/warsaw-env";
         Type = "forking";
+
+        PIDFile = "/var/run/core.pid";
 
         # Hardening
         # CapabilityBoundingSet = [ ];
